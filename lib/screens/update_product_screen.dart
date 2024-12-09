@@ -72,13 +72,16 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
                   hintText: 'Price',
                 ),
                 const SizedBox(
-                  height: 50,
+                  height: 10,
                 ),
                 CustomTextField(
                   onChanged: (data) {
                     image = data;
                   },
                   hintText: 'Image',
+                ),
+                const SizedBox(
+                  height: 50,
                 ),
                 CustomButton(
                   buttonText: 'Update',
