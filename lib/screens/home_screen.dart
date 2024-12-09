@@ -57,8 +57,6 @@ class HomeScreen extends StatelessWidget {
                 },
               );
             } else {
-              List<ProductModel> product = snapshot.data!;
-              print(product);
               return const Center(child: CircularProgressIndicator());
             }
           },

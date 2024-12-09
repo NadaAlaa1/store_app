@@ -14,8 +14,9 @@ class CustomCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
-        Navigator.pushNamed(context, UpdateProductScreen.id);
+      onTap: () {
+        Navigator.pushNamed(context, UpdateProductScreen.id,
+            arguments: product);
       },
       child: Stack(
         clipBehavior: Clip.none,
@@ -32,15 +33,19 @@ class CustomCard extends StatelessWidget {
               ],
             ),
             child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
               elevation: 10,
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      product.title.substring(0,6),
+                      product.title.substring(0, 6),
                       style: const TextStyle(
                         color: Colors.grey,
                         fontSize: 16,
