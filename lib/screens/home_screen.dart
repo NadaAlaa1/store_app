@@ -36,7 +36,7 @@ class HomeScreen extends StatelessWidget {
         padding: const EdgeInsets.only(
           left: 16,
           right: 16,
-          top: 50,
+          top: 65,
         ),
         child: FutureBuilder<List<ProductModel>>(
           future: AllProductsService().getAllProducts(),
