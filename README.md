@@ -21,7 +21,7 @@ A dynamic and responsive Flutter application for managing and browsing a collect
 - **Smooth User Experience**: Includes loaders and feedback mechanisms for API calls.
 
 ## Screenshots
-Here’s a preview of the News App in action:
+Here’s a preview of the Chat App in action:
 
 <p align="center">
   <img src="assets/screenshots/home.png" alt="Home Screen" width="300">
