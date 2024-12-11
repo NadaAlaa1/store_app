@@ -6,24 +6,29 @@ import 'package:store_app/widgets/custom_button.dart';
 import 'package:store_app/widgets/custom_text_field.dart';
 
 class UpdateProductScreen extends StatefulWidget {
-  const UpdateProductScreen({super.key});
-
   static String id = 'UpdateProductScreen';
 
+  const UpdateProductScreen({super.key});
+
   @override
-  State<UpdateProductScreen> createState() => _UpdateProductScreenState();
+  State<UpdateProductScreen> createState() => _UpdateProductPageState();
 }
 
-class _UpdateProductScreenState extends State<UpdateProductScreen> {
+class _UpdateProductPageState extends State<UpdateProductScreen> {
   String? productName, description, image;
-
   String? price;
   bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
+    // Get screen dimensions
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
+    // Get the passed product data
     ProductModel product =
         ModalRoute.of(context)!.settings.arguments as ProductModel;
+
     return ModalProgressHUD(
       inAsyncCall: isLoading,
       child: Scaffold(
@@ -39,50 +44,44 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
           centerTitle: true,
         ),
         body: Padding(
-          padding: const EdgeInsets.all(16),
+          padding: EdgeInsets.symmetric(
+            horizontal: screenWidth * 0.05, // Adjust horizontal padding dynamically
+            vertical: screenHeight * 0.02, // Adjust vertical padding dynamically
+          ),
           child: SingleChildScrollView(
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const SizedBox(
-                  height: 100,
-                ),
+                SizedBox(height: screenHeight * 0.1), // Adjust height dynamically
                 CustomTextField(
                   onChanged: (data) {
                     productName = data;
                   },
                   hintText: 'Product Name',
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
+                SizedBox(height: screenHeight * 0.02),
                 CustomTextField(
                   onChanged: (data) {
                     description = data;
                   },
                   hintText: 'Description',
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
+                SizedBox(height: screenHeight * 0.02),
                 CustomTextField(
                   onChanged: (data) {
                     price = data;
                   },
-                  inputType: TextInputType.number,
                   hintText: 'Price',
+                  inputType: TextInputType.number,
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
+                SizedBox(height: screenHeight * 0.02),
                 CustomTextField(
                   onChanged: (data) {
                     image = data;
                   },
-                  hintText: 'Image',
+                  hintText: 'Image URL',
                 ),
-                const SizedBox(
-                  height: 50,
-                ),
+                SizedBox(height: screenHeight * 0.07),
                 CustomButton(
                   buttonText: 'Update',
                   onTap: () async {
@@ -90,9 +89,9 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
                     setState(() {});
                     try {
                       await updateProduct(product);
-                      print('success');
+                      print('Product updated successfully');
                     } catch (e) {
-                      print(e.toString());
+                      print('Error updating product: ${e.toString()}');
                     }
                     isLoading = false;
                     setState(() {});
@@ -109,10 +108,10 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
   Future<void> updateProduct(ProductModel product) async {
     await UpdateProductService().updateProduct(
       id: product.id,
-      title: productName == null ? product.title : productName!,
-      price: price == null ? product.price.toString() : price!,
-      description: description == null ? product.description : description!,
-      image: image == null ? product.image : image!,
+      title: productName ?? product.title,
+      price: price ?? product.price.toString(),
+      description: description ?? product.description,
+      image: image ?? product.image,
       category: product.category,
     );
   }
